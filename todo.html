@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="mx-auto mt-5" style="max-width: 700px;">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Enter Your Name" id="username" required>
+                    <button class="btn text-white btn-info" type="button" id="addUser">Add User</button>
+                </div>
+                <div class="display">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Your Name</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="records">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const addUserbtn = document.getElementById("addUser");
+        const addUserbtnText = addUserbtn.innerText;
+        const usernameText = document.getElementById("username");
+        const recordDisplay = document.getElementById("records");
+        let userArry = [];
+        let edit_id = null;
+
+        let objStr = localStorage.getItem("Name");
+        if (objStr != null) {
+            userArry = JSON.parse(objStr);
+        }
+
+        displayInfo();
+        addUserbtn.onclick = (event) => {
+            const name = usernameText.value;
+            if (edit_id != null) {
+                //edit
+                userArry.splice(edit_id, 1, {
+                    "name": name
+                });
+                edit_id = null;
+            } else {
+                //insert
+                userArry.push({
+                    "name": name
+                });
+            }
+
+
+            if (usernameText.value != "") {
+                saveInfo(userArry);
+                usernameText.value = "";
+                addUserbtn.innerText = addUserbtnText;
+            } else {
+                event.preventDefault()
+            }
+        }
+
+        function saveInfo(userArry) {
+            let userStr = JSON.stringify(userArry);
+            localStorage.setItem("Name", userStr);
+            displayInfo();
+        }
+
+        function displayInfo() {
+            let statement = "";
+            userArry.forEach((usertest, index) => {
+                statement += `<tr>
+                    <th scope="row">${index+1}</th>
+                    <td>${usertest.name}</td>
+                    <td><i class="btn text-white fa fa-edit btn-info mx-2" onclick='edit(${index})'></i> 
+                    <i class="btn btn-danger text-white fa fa-trash" onclick='deleteResult(${index})'></i></td>
+                </tr>`;
+            });
+            recordDisplay.innerHTML = statement;
+        }
+
+        function edit(id) {
+            edit_id = id;
+            usernameText.value = userArry[id].name;
+            addUserbtn.innerText = "Save Change";
+
+        }
+
+        function deleteResult(id) {
+            userArry.splice(id, 1);
+            saveInfo(userArry);
+
+        }
+    </script>
+</body>
+
+</html>

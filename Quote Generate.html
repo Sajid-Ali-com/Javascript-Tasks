@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .quote-box {
+            display: flex;
+            flex-direction: column;
+            background-color: #f5f5f5;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            color: #000;
+            text-align: center;
+            padding: 20px;
+            margin: 0px auto;
+        }
+        
+        .quote-box h1 {
+            margin-top: 0px;
+        }
+        
+        #btn {
+            display: inline-block;
+            background: rgb(69, 168, 235);
+            font-size: 15px;
+            color: #fff;
+            cursor: pointer;
+            border: 0px;
+            padding: 10px 20px;
+            margin-bottom: 15px;
+        }
+        
+        #random-quote {
+            margin: 0px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="quote-box">
+        <h1>Random Quote Generate</h1>
+        <button id="btn">Generate Random Quote</button>
+        <p id="random-quote">Random Text Show Here After Click</p>
+    </div>
+
+    <script>
+        window.onload = function() {
+            randomQuote();
+        }
+
+        function randomQuote() {
+            var btn = document.getElementById("btn");
+            btn.onclick = function() {
+                var randomArray = [
+                    "Lorem Ipsum is simply dummy text of the printing 1",
+                    "Lorem Ipsum has been the industry's standard dummy text 2",
+                    "There are many variations of passages 3",
+                    "The standard chunk of Lorem Ipsum used since 4",
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit 5",
+                    "On the other hand, we denounce with righteous 6"
+                ];
+                var arrLength = randomArray.length;
+                var randNumber = Math.floor(Math.random() * arrLength);
+                document.getElementById("random-quote").textContent = "\"" + randomArray[randNumber] + "\"";
+            }
+        }
+    </script>
+</body>
+
+</html>

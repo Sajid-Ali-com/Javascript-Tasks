@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+
+    <style>
+        .img-gallery {
+            width: 100%;
+            max-width: 1200px;
+            background-color: #f5f5f5;
+            text-align: center;
+            padding: 20px;
+            margin: 0 auto;
+        }
+        
+        .img-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .img-row img {
+            width: calc(33.33% - 20px);
+            margin: 10px;
+        }
+        
+        #model {
+            position: absolute;
+            inset: 0px;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            ;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="img-gallery">
+        <h1>Image Gallery</h1>
+        <div class="img-row">
+            <img src="images/1.jpg" alt="" class="img">
+            <img src="images/2.jpg" alt="" class="img">
+            <img src="images/3.jpg" alt="" class="img">
+            <img src="images/4.jpg" alt="" class="img">
+            <img src="images/5.jpg" alt="" class="img">
+            <img src="images/6.jpg" alt="" class="img">
+        </div>
+    </div>
+
+    <div id="model">
+        <img src="" alt="" id="popup-img">
+        <button id="close-btn">X</button>
+    </div>
+
+    <script>
+        window.onload = function() {
+            openGallery();
+        }
+
+        function openGallery() {
+            var img = document.getElementsByClassName("img");
+            for (i = 0; i < img.length; i++) {
+                img[i].onclick = function() {
+                    openModel(this.src);
+                }
+            }
+        }
+
+        function openModel(src) {
+            document.getElementById("model").style.display = "flex";
+            document.getElementById("popup-img").src = src;
+        }
+        document.getElementById("close-btn").onclick = function() {
+            document.getElementById("model").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

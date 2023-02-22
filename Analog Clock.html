@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Analog Clock</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            margin: 0px;
+        }
+        
+        .digital-clcok {
+            display: flex;
+            padding: 50px;
+            font-size: 70px;
+        }
+        
+        .digital-clcok * {
+            padding: 0px 5px;
+        }
+        
+        .clock-wrapper {
+            position: relative;
+            margin: auto;
+            height: 40vw;
+            width: 40vw;
+            background: url(clock.png) no-repeat;
+            background-size: 100%;
+        }
+        
+        #hours,
+        #minute,
+        #second {
+            position: absolute;
+            background: black;
+            border-radius: 10px;
+            transform-origin: bottom;
+        }
+        
+        #hours {
+            width: 1.8%;
+            height: 25%;
+            top: 25%;
+            left: 48.85%;
+            opacity: 0.8;
+        }
+        
+        #minute {
+            width: 1.6%;
+            height: 30%;
+            top: 19%;
+            left: 48.9%;
+            opacity: 0.8;
+        }
+        
+        #second {
+            width: 1%;
+            height: 40%;
+            top: 10%;
+            left: 49.25%;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="digital-clcok">
+        <div id="hrs">00</div>
+        <span>:</span>
+        <div id="min">00</div>
+        <span>:</span>
+        <div id="sec">00</div>
+        <span>:</span>
+        <div id="session">AM</div>
+    </div>
+
+    <div class="clock-wrapper">
+        <div id="hours"></div>
+        <div id="minute"></div>
+        <div id="second"></div>
+    </div>
+
+    <script>
+        setInterval(() => {
+            d = new Date();
+            htime = d.getHours();
+            mns = d.getMinutes();
+            sec = d.getSeconds();
+
+            hrotation = 30 * htime + mns / 2;
+            mrotation = 6 * mns;
+            srotation = 6 * sec;
+
+            hours.style.transform = `rotate(${hrotation}deg)`;
+            minute.style.transform = `rotate(${mrotation}deg)`;
+            second.style.transform = `rotate(${srotation}deg)`;
+
+        }, 1000);
+
+
+        function setTime() {
+            var dateTime = new Date();
+            var hr = dateTime.getHours();
+            var min = dateTime.getMinutes();
+            var sec = dateTime.getSeconds();
+            var session = document.getElementById("session");
+
+            if (hr >= 12 && hr > 12) {
+                hr = hr - 12;
+                session.innerHTML = "PM";
+            } else {
+                session.innerHTML = "AM";
+            }
+
+            document.getElementById("hrs").innerHTML = hr;
+            document.getElementById("min").innerHTML = min;
+            document.getElementById("sec").innerHTML = sec;
+        }
+        setInterval(setTime, 1000);
+    </script>
+</body>
+
+</html>
